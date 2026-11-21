@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-white font-sans text-graphite antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3 { @apply font-display font-bold tracking-tight; }
+  :focus-visible { @apply outline-none ring-2 ring-electric ring-offset-2 ring-offset-graphite; }
+  .on-light :focus-visible, main :focus-visible { @apply ring-forest ring-offset-white; }
+  .on-dark :focus-visible { @apply ring-electric ring-offset-graphite; }
+}
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-page px-5 sm:px-8; }
+  .section-y { @apply py-16 sm:py-20 lg:py-28; }
+  .input-base {
+    @apply w-full rounded-md border border-graphite/20 bg-white px-3.5 py-3 text-base text-graphite placeholder:text-graphite/40;
+    @apply transition-colors focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/30;
+  }
+  .input-error { @apply border-red-600 focus:border-red-600 focus:ring-red-600/25; }
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}
+
+@keyframes wheel-spin { to { transform: rotate(360deg); } }
+@keyframes road-move { to { stroke-dashoffset: -120; } }
+@keyframes glow-pulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+
+.wheel-spin { transform-box: fill-box; transform-origin: center; animation: wheel-spin 5s linear infinite; }
+.road-dash { animation: road-move 2.4s linear infinite; }
+.glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .wheel-spin, .road-dash, .glow-pulse { animation: none; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
